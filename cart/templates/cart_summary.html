@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+<header class="bg-dark py-5" style="background-image: url({% static 'images/bg10.jpg' %}); background-size: cover; background-position: center;">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shopping Cart</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">View Your Cart...</p>
+                </div>
+            </div>
+        </header>
+            {% if cart_products %}
+            {% for product in cart_products %}
+            <div class="container">
+                <br>
+                  <div class="card mb-3">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bolder">{{product.name}}</h5>
+                              <div class="d-flex small text-warning mb-2">
+                                  <div class="bi-star-fill"></div>
+                                  <div class="bi-star-fill"></div>
+                                  <div class="bi-star-fill"></div>
+                                  <div class="bi-star-fill"></div>
+                                  <div class="bi-star-fill"></div>
+                              </div>
+                              <!-- Product price-->
+                              <span class="text-muted text-decoration-line-through">₹100.00</span>
+                              {{product.price}} <br><br>
+                              <div class="col-md-2">
+                                <div class="btn-group">
+                                  <div class="btn btn-success active" aria-current="page">Quantity:</a>
+                                  <div class="btn btn-success" id="qty-cart">
+                                    {% for key,value in quantities.items %}
+                                    {% if key == product.id|slugify %}
+                                    <option selected>{{value}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                  </div>
+                                </div>      
+                          </div><br><br>
+                          <a href="{% url "index" %}" class="btn btn-secondary d-inline-flex p-2">Home</a>
+                          <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-product d-inline-flex p-2">Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <br>
+            {% endfor %}
+            <div class="container">
+              <h3><strong>Total: ₹{{totals}}</strong></h3>
+              <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <h3><strong>Shipping Details</strong></h3>
+                        <form class="row g-3" action="{% url 'pay' %}" method="POST" >
+                            {% csrf_token %}
+                            <label for="nameInput" class="form-label">Amount:</label>
+                            <input type="text" id="nameInput" name="amount" class="form-control" value="{{ totals }}" readonly><br><br>
+                
+                            <div class="col-md-4">
+                              <label for="validationDefault01" class="form-label">First name</label>
+                              <input type="text" class="form-control" id="validationDefault01" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="validationDefault02" class="form-label">Last name</label>
+                              <input type="text" class="form-control" id="validationDefault02" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="validationDefaultUsername" class="form-label">Username</label>
+                              <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="validationDefault03" class="form-label">City</label>
+                              <input type="text" class="form-control" id="validationDefault03" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="validationDefault04" class="form-label">State</label>
+                              <input type="text" class="form-control" id="validationDefault02" required>
+                              
+                            </div>
+                            <div class="col-md-3">
+                              <label for="validationDefault05" class="form-label">Zip</label>
+                              <input type="text" class="form-control" id="validationDefault05" required>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck2">
+                                  Agree to terms and conditions
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <button class="btn btn-primary" type="submit">Order Now</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+          </div>
+            {% else %}
+            <br><br>
+            <center><h5 class="card-title fw-bolder">There's Nothing in your Cart...</h5></center>
+            {% endif %}
+
+<br><br><br><br><br><br><br><br>
+<script>
+  
+  $(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data: {
+          product_id: $(this).data('index'),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+    },
+    success: function(json){
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+    });
+})
+
+
+
+</script>
+{% endblock %}

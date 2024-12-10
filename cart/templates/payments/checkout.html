@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Header-->
+{% load static %}
+<style>
+    .razorpay-payment-button {
+        background: linear-gradient(90deg, #4CAF50, #2E7D32); /* Gradient green */
+        color: #ffffff; /* White text for contrast */
+        font-size: 14px; /* Slightly larger font size */
+        font-weight: bold;
+        padding: 12px 24px; /* Comfortable padding */
+        border: none;
+        border-radius: 6px; /* Slightly rounded corners */
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 1px; /* Stylish spacing */
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    }
+
+    .razorpay-payment-button:hover {
+        background: linear-gradient(90deg, #66BB6A, #43A047); /* Lighter green on hover */
+        transform: scale(1.1); /* Slight zoom effect */
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    }
+
+    .razorpay-payment-button:active {
+        background: linear-gradient(90deg, #388E3C, #1B5E20); /* Darker green when clicked */
+        transform: scale(0.95); /* Pressing effect */
+    }
+</style>
+
+<header class="bg-dark py-5" style="background-image: url({% static 'images/bg3.png' %}); background-size: cover; background-position: center;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Confirm Order</h1>
+            <p class="lead fw-normal text-white-45 mb-0">Click the Button to Purchase your Order.</p>
+        </div>
+    </div>
+</header><br><br><br>
+<div class="text-center">
+    <div class="card-body">
+      <h5 class="card-title">Click that button for payment</h5><br>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <form action="{% url 'payment_callback' %}" method="POST">
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ razorpay_key_id }}"
+            data-amount="{{ amount }}"
+            data-currency="{{ currency }}"
+            data-order_id="{{ order_id }}">
+        </script>
+        <!-- Razorpay automatically generates a payment button inside the script tag -->
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+        <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+       </form>
+    </div>
+  </div>
+                
+
+
+
+
+
+<br><br><br><br><br><br><br>
+{% endblock %}

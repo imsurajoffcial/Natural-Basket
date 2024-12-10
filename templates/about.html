@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<style>
+    .custom-img {
+        width: 30%;
+        height: auto;
+    }
+</style>
+
+<!-- Header -->
+<header class="bg-dark py-5" style="background-image: url({% static 'images/bg5.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">ABOUT US</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Welcome to natural basket.</p>
+        </div>
+    </div>
+</header>
+
+<br><br>
+
+<!-- About Us Section -->
+<div class="container">
+    <div class="d-flex align-items-center">
+        <!-- Image -->
+        <img src="{% static 'images/bg9.jpg' %}" class="custom-img rounded-start me-4" alt="Description">
+        
+        <!-- Text -->
+        <section id="about">
+            <h2>About Us</h2>
+            <p style="line-height: 1.8; font-size: 1.1rem;">
+                Welcome to <strong>Natural Basket Fruit Shop</strong>, your one-stop destination for fresh, organic, and naturally grown fruits.
+                We are committed to delivering the finest produce sourced directly from local farmers and sustainable farms.
+                At Natural Basket, we believe in promoting healthy lifestyles while caring for the environment.
+                Our eco-friendly packaging and handpicked fruits ensure you get the best of nature in every basket.
+            </p>
+            <p style="line-height: 1.8; font-size: 1.1rem;">
+                Whether you're looking for seasonal delights, exotic fruits, or everyday staples, our collection has something for everyone.
+                Join us in celebrating the goodness of nature and making healthier choices for a better future.
+            </p>
+        </section>
+    </div>
+</div>
+
+
+<br><br>
+{% endblock %}
