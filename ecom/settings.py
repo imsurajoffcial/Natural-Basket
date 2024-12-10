@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +24,7 @@ SECRET_KEY = 'django-insecure-=zpctxlg=yzom$6*!#(_x*y+g2u&n&+(3ib=4p1dijj)k_br31
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-import dj_database_url
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -79,9 +78,23 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-'default': dj_database_url.parse('postgresql://nb_database_user:fJEicimtha40fcabJKDzP2LiXunbddyu@dpg-ctc0uqt2ng1s73bs7v00-a.oregon-postgres.render.com')
+    'default': dj_database_url.parse('postgresql://nb_database_user:fJEicimtha40fcabJKDzP2LiXunbddyu@dpg-ctc0uqt2ng1s73bs7v00-a.oregon-postgres.render.com/nb_database'
+    )
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'natural_basket',
+#         'USER':'postgres',
+#         'PASSWORD':'root',
+#         'HOST':'localhost'
+#     }
+# }
 
 
 # Password validation

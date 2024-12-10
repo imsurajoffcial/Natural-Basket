@@ -29,7 +29,7 @@ def product(request,pk):
     return render(request,'product.html',{'product':product})
 
 def index(request):
-    products = Product.objects.all
+    products = Product.objects.all()
     return render(request,'index.html',{'products':products})
 
 
