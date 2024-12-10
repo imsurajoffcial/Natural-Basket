@@ -40,7 +40,7 @@
                                   <div class="btn btn-success" id="qty-cart">
                                     {% for key,value in quantities.items %}
                                     {% if key == product.id|slugify %}
-                                    <option selected>{{value}}</option>
+                                    <option selected>{{value}} <span class="me-4">Kg</span></option>
                                     {% endif %}
                                     {% endfor %}
                                   </div>
