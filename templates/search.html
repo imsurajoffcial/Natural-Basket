@@ -18,7 +18,7 @@
     <div class="row">
         <center>
             <div class="col-10">
-                <div class="card">
+                <div class="card" style="width: 80%;">
                     <div class="card-header">
                       Search products
                     </div>
@@ -26,7 +26,7 @@
                             <form method="POST" action="{% url "search" %}">
                                 {% csrf_token %}
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="search for products" name="searched">
+                                    <input type="text" style="width:80%;" class="form-control" placeholder="search for products" name="searched">
                                   </div>
                                  
                                   <button type="submit" class="btn btn-primary"><i class="bi-search" style="margin-right: 10px;"></i>Search Products</button>
